@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"zestack.dev/is"
+	"go-slim.dev/is"
 )
 
 // Ruler 规则验证函数签名

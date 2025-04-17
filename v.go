@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"zestack.dev/is"
+	"go-slim.dev/is"
 )
 
 // Validatable 验证功能接口
