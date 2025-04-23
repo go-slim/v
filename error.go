@@ -134,6 +134,7 @@ func (e *Error) Error() string {
 
 // Errors 错误集
 type Errors struct {
+	name   string
 	errors []*Error
 }
 
@@ -232,7 +233,14 @@ func (e *Errors) String() string {
 }
 
 func (e *Errors) Error() string {
+	if e.name == "" {
+		return e.name
+	}
 	return e.String()
+}
+
+func (e *Errors) IsSomeError() bool {
+	return e.name == "some"
 }
 
 func isBuiltinError(err error) bool {

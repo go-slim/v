@@ -1,9 +1,6 @@
 package v
 
 import (
-	"errors"
-	"strings"
-
 	"go-slim.dev/is"
 )
 
@@ -55,12 +52,8 @@ func Some(validators ...Validatable) Checker {
 		if hasOk || errs.IsEmpty() {
 			return nil
 		}
-		buf := strings.Builder{}
-		buf.WriteString("一下错误至少满足一项：\n")
-		for _, line := range strings.Split(errs.Error(), "\n") {
-			buf.WriteString("  " + line + "\n")
-		}
-		return errors.New(strings.TrimSpace(buf.String()))
+		errs.name = "some"
+		return errs
 	}
 }
 
