@@ -39,7 +39,7 @@ func Every(validators ...Validatable) Checker {
 // Some 任意一项验证通过即可
 func Some(validators ...Validatable) Checker {
 	return func() error {
-		errs := &Errors{}
+		errs := &Errors{name: "some"}
 		var hasOk bool
 		for _, validator := range validators {
 			err := validator.Validate()
@@ -52,7 +52,6 @@ func Some(validators ...Validatable) Checker {
 		if hasOk || errs.IsEmpty() {
 			return nil
 		}
-		errs.name = "some"
 		return errs
 	}
 }

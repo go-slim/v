@@ -132,6 +132,10 @@ func (e *Error) Error() string {
 	return e.String()
 }
 
+func (e *Error) Internal() error {
+	return e.error
+}
+
 // Errors 错误集
 type Errors struct {
 	name   string
@@ -155,7 +159,9 @@ func (e *Errors) Add(err error) {
 		e.errors = make([]*Error, 0)
 	}
 	if ex, ok := err.(*Errors); ok {
-		if !ex.IsEmpty() {
+		if ex.IsSomeError() {
+			e.errors = append(e.errors, &Error{error: ex})
+		} else if !ex.IsEmpty() {
 			e.errors = append(e.errors, ex.errors...)
 		}
 	} else if ex, ok := err.(*Error); ok && ex != nil {
@@ -233,7 +239,7 @@ func (e *Errors) String() string {
 }
 
 func (e *Errors) Error() string {
-	if e.name == "" {
+	if e.name != "" {
 		return e.name
 	}
 	return e.String()
