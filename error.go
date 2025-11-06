@@ -2,6 +2,7 @@ package v
 
 import (
 	"fmt"
+	"maps"
 	"strings"
 )
 
@@ -72,15 +73,12 @@ func (e *Error) Format() string {
 	return e.format
 }
 
-// Params 返回错误格式化蚕食
+// Params 返回错误格式化参数
 func (e *Error) Params() map[string]any {
-	p := map[string]any{}
 	if e.params != nil {
-		for k, v := range e.params {
-			p[k] = v
-		}
+		return maps.Clone(e.params)
 	}
-	return p
+	return map[string]any{}
 }
 
 // Field 返回字段名

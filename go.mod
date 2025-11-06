@@ -1,5 +1,5 @@
 module go-slim.dev/v
 
-go 1.21.0
+go 1.24.0
 
-toolchain go1.21.0
+require go-slim.dev/is v0.0.0-20250826073441-538c21f4ca51
